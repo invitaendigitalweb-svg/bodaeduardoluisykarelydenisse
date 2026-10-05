@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Nuestra Invitación</title>
+
+  <!-- METATAGS PARA MINIATURA DE WHATSAPP -->
+  <meta property="og:title" content="Nuestra Invitación">
+  <meta property="og:description" content="¡Estás invitado a nuestra boda! Haz click para ver los detalles.">
+  <meta property="og:image" content="miniatura.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="300">
+  <meta property="og:image:height" content="300">
+
+  <!-- Fuentes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Great+Vibes&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      background-color: #FFFFFF;
+      font-family: 'Cinzel', serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    /* MARCO DE CELULAR CON PARALLAX */
+    .mobile-screen {
+      width: 100%;
+      max-width: 430px;
+      height: 100vh;
+      height: 100dvh;
+      position: relative;
+      background-color: #FFFFFF;
+      box-shadow: 0 0 30px rgba(0,0,0,0.15);
+      overflow: hidden;
+    }
+
+    .mobile-screen::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -15%;
+      width: 130%;
+      height: 160%;
+      background-image: url('fondo.jpg');
+      background-size: cover;
+      background-position: top center;
+      background-repeat: no-repeat;
+      z-index: 0;
+      pointer-events: none;
+      transform: translateY(var(--bg-y, 0%));
+      transition: transform 0.15s ease-out;
+      will-change: transform;
+    }
+
+    .invitation-wrapper {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      z-index: 1;
+      overflow-y: auto;
+      overflow-x: hidden;
+      -webkit-overflow-scrolling: touch;
+      background: transparent;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      scroll-behavior: smooth;
+      opacity: 1;
+      visibility: visible;
+      padding-bottom: 50px;
+    }
+
+    .invitation-wrapper::-webkit-scrollbar {
+      display: none;
+      width: 0;
+      height: 0;
+    }
+
+    /* BOTÓN FLOTANTE DE MÚSICA */
+    .music-btn {
+      position: absolute;
+      bottom: 25px;
+      right: 20px;
+      width: 42px;
+      height: 42px;
+      background: linear-gradient(135deg, #A68B5B 0%, #8C6D46 100%);
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 4px 12px rgba(140, 109, 70, 0.4);
+      cursor: pointer;
+      z-index: 9;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 1s ease, transform 0.2s ease, visibility 1s ease;
+    }
+
+    .music-btn.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .music-btn:active {
+      transform: scale(0.9);
+    }
+
+    .music-btn svg {
+      width: 20px;
+      height: 20px;
+      fill: #ffffff;
+    }
+
+    .music-btn.playing svg {
+      animation: pulseMusic 2s infinite linear;
+    }
+
+    @keyframes pulseMusic {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.12); }
+      100% { transform: scale(1); }
+    }
+
+    /* SECCIONES DE IMÁGENES */
+    .image-section {
+      width: 100%;
+      background-color: transparent;
+      display: block;
+      margin: 0;
+      padding: 0;
+      line-height: 0;
+      position: relative;
+    }
+
+    .image-section img {
+      width: 100%;
+      height: auto;
+      display: block;
+      margin: 0;
+      padding: 0;
+      filter: drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.03));
+    }
+
+    /* ESTILOS DE BOTONES CON TIPOGRAFÍA CINZEL Y ALINEACIÓN EXACTA */
+    .ceremonia-container {
+      position: relative;
+      display: block;
+      width: 100%;
+    }
+
+    .map-btn {
+      position: absolute;
+      left: 27.5%;
+      transform: translateX(-50%);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      background: linear-gradient(135deg, #1d335a 0%, #101c33 100%);
+      color: #ffffff;
+      font-family: 'Cinzel', serif;
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 8px 14px;
+      border-radius: 25px;
+      border: 1px solid rgba(255, 255, 255, 0.85);
+      box-shadow: 0 4px 15px rgba(16, 28, 51, 0.35);
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      z-index: 5;
+      white-space: nowrap;
+      line-height: normal;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    }
+
+    .map-btn svg {
+      width: 11px;
+      height: 11px;
+      fill: #ffffff;
+      flex-shrink: 0;
+    }
+
+    .map-btn:hover, .map-btn:active {
+      background: linear-gradient(135deg, #101c33 0%, #0a1221 100%);
+      transform: translateX(-50%) scale(0.96);
+      box-shadow: 0 6px 18px rgba(16, 28, 51, 0.5);
+    }
+
+    .btn-ceremonia {
+      top: 42%;
+    }
+
+    .btn-recepcion {
+      top: 81%;
+    }
+
+    /* PORTADA CON FONDO BLANCO ABSOLUTO Y ZOOM ULTRA-FLUIDO */
+    .portada-section {
+      background-color: #FFFFFF;
+      overflow: hidden;
+      z-index: 2;
+    }
+
+    .portada-section img {
+      transform: scale(1.08);
+      transition: transform 2.5s cubic-bezier(0.25, 1, 0.5, 1);
+      will-change: transform;
+    }
+
+    .portada-section.portada-animada img {
+      transform: scale(1);
+    }
+
+    /* PAPÁS (PNG) - ANIMACIÓN ELEGANTE DE ENTRADA Y FLOTADO */
+    .papas-section img {
+      opacity: 0;
+      transform: translateY(-25px);
+      transition: opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1) 0.2s, transform 1.2s cubic-bezier(0.22, 1, 0.36, 1) 0.2s;
+      will-change: opacity, transform;
+    }
+    
+    .papas-section.papas-animada img {
+      opacity: 1;
+      transform: translateY(0);
+      animation: papasFloat 5s ease-in-out infinite alternate 1.4s;
+    }
+
+    @keyframes papasFloat {
+      0% { transform: translateY(0px) scale(1); }
+      50% { transform: translateY(-5px) scale(1.01); }
+      100% { transform: translateY(0px) scale(1); }
+    }
+
+    /* ANIMACIÓN VERTICAL FLUIDA PARA FECHA Y HORA */
+    .fecha-animada {
+      opacity: 0;
+      transform: translateY(35px);
+      transition: opacity 1.5s cubic-bezier(0.16, 1, 0.3, 1), transform 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform;
+    }
+
+    .fecha-animada.visible-section {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ANIMACIONES SECUNDARIAS DE SCROLL */
+    .slide-left {
+      opacity: 0;
+      transform: translateX(-35px);
+      transition: opacity 1s cubic-bezier(0.25, 1, 0.5, 1), transform 1s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+    .slide-left.visible-section {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .slide-right {
+      opacity: 0;
+      transform: translateX(35px);
+      transition: opacity 1s cubic-bezier(0.25, 1, 0.5, 1), transform 1s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+    .slide-right.visible-section {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .scale-up {
+      opacity: 0;
+      transform: scale(0.92);
+      transition: opacity 1s cubic-bezier(0.34, 1.26, 0.64, 1), transform 1s cubic-bezier(0.34, 1.26, 0.64, 1);
+    }
+    .scale-up.visible-section {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .fade-up {
+      opacity: 0;
+      transform: translateY(25px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+    .fade-up.visible-section {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* CUENTA REGRESIVA CON NÚMEROS EN AZUL MARINO */
+    .countdown-section {
+      background-color: transparent;
+      padding: 35px 15px 45px 15px;
+      text-align: center;
+      width: 100%;
+    }
+
+    .countdown-flex {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      max-width: 380px;
+      margin: 0 auto;
+    }
+
+    .countdown-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 65px;
+    }
+
+    .countdown-number {
+      font-size: 42px;
+      font-weight: 600;
+      color: #1d335a;
+      font-family: 'Cormorant Garamond', serif;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .countdown-label {
+      font-size: 15px;
+      color: #8C6D46;
+      font-weight: 600;
+      font-style: italic;
+      font-family: 'Cormorant Garamond', serif;
+    }
+
+    .countdown-divider {
+      font-size: 18px;
+      color: #A68B5B;
+      margin-top: -20px;
+      user-select: none;
+    }
+
+    /* SOBRE DE BIENVENIDA CON DESAPARICIÓN ULTRA-SUAVE */
+    .envelope-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      height: 100dvh;
+      cursor: pointer;
+      z-index: 10;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #FFFFFF;
+      overflow: hidden;
+      transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1), visibility 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .envelope-card {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      background-image: url('sobre.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    .open.envelope-container {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    /* ESTILOS DE LA FORMULARIO RSVP INTEGRADO (SIN FONDO) */
+    .rsvp-container-wrapper {
+      width: 100%;
+      padding: 10px 20px 30px;
+      display: flex;
+      justify-content: center;
+      line-height: normal;
+    }
+
+    .tarjeta-asistencia {
+      width: 100%;
+      background: transparent; /* SIN FONDO */
+      border: 1px solid rgba(234, 229, 217, 0.8);
+      border-radius: 25px;
+      padding: 30px 22px;
+      backdrop-filter: blur(5px);
+      box-shadow: 0 10px 30px rgba(17, 28, 51, 0.08);
+      font-family: 'Montserrat', sans-serif;
+      color: #554C3A;
+    }
+
+    .grupo {
+      margin-bottom: 22px;
+      position: relative;
+    }
+
+    .etiqueta {
+      display: block;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      color: #1d335a;
+      margin-bottom: 10px;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    .tarjeta-asistencia input[type="text"] {
+      width: 100%;
+      padding: 14px 15px;
+      border-radius: 12px;
+      border: 1px solid #EAE5D9;
+      background: rgba(253, 251, 247, 0.85);
+      outline: none;
+      font-family: 'Montserrat', sans-serif;
+      color: #554C3A;
+      font-size: 14px;
+      transition: all 0.3s ease;
+    }
+
+    .tarjeta-asistencia input[type="text"]:focus {
+      border-color: #1d335a;
+      box-shadow: 0 0 8px rgba(29, 51, 90, 0.2);
+      background: #FFFFFF;
+    }
+
+    .opciones {
+      display: flex;
+      gap: 12px;
+    }
+
+    .opcion {
+      flex: 1;
+    }
+
+    .opcion input {
+      display: none;
+    }
+
+    .opcion label {
+      display: block;
+      text-align: center;
+      padding: 13px 8px;
+      border: 1px solid #EAE5D9;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 13px;
+      background: rgba(253, 251, 247, 0.85);
+      color: #726650;
+      transition: .2s;
+    }
+
+    .opcion input:checked + label {
+      background: #1d335a;
+      border-color: #1d335a;
+      color: #FFFFFF;
+      font-weight: 600;
+    }
+
+    .boton-confirmar {
+      width: 100%;
+      border: 0;
+      border-radius: 30px;
+      padding: 16px;
+      background: linear-gradient(135deg, #1d335a 0%, #101c33 100%);
+      color: white;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 10px;
+      box-shadow: 0 4px 15px rgba(16, 28, 51, 0.25);
+      transition: all 0.2s ease;
+    }
+
+    .boton-confirmar:hover {
+      background: #101c33;
+    }
+
+    .boton-confirmar:disabled {
+      opacity: .6;
+      cursor: not-allowed;
+    }
+
+    .mensaje {
+      display: none;
+      text-align: center;
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 12px;
+      background: rgba(253, 251, 247, 0.9);
+      border: 1px solid #EAE5D9;
+      line-height: 1.5;
+      font-size: 13.5px;
+      color: #554C3A;
+    }
+
+    .mensaje.visible {
+      display: block;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="mobile-screen" id="mobileScreen">
+
+    <audio id="bg-music" src="cancion.mp3" loop preload="auto"></audio>
+
+    <!-- BOTÓN REPRODUCTOR DE MÚSICA -->
+    <button class="music-btn" id="musicBtn" onclick="toggleMusic()" aria-label="Controlar música">
+        <svg id="musicIcon" viewBox="0 0 24 24">
+            <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+        </svg>
+    </button>
+
+    <div class="invitation-wrapper" id="invitation">
+
+        <!-- 1. PORTADA CON ZOOM SUAVE Y FONDO BLANCO PURO -->
+        <div class="image-section portada-section" id="portadaSection">
+            <img src="portada.png" alt="Portada">
+        </div>
+
+        <!-- 2. PAPÁS (PNG) - ANIMACIÓN ELEGANTE DE ENTRADA Y FLOTADO -->
+        <div class="image-section papas-section" id="papasSection">
+            <img src="papas.png" alt="Nuestros Padres">
+        </div>
+
+        <!-- 3. FECHA (PNG) -->
+        <div class="image-section fecha-animada reveal-section">
+            <img src="fecha.png" alt="Fecha y Hora del Evento">
+        </div>
+
+        <!-- 4. CONTADOR CON NÚMEROS EN AZUL MARINO -->
+        <div class="countdown-section fade-up reveal-section">
+            <div class="countdown-flex">
+                <div class="countdown-item">
+                    <span id="days" class="countdown-number">00</span>
+                    <span class="countdown-label">Días</span>
+                </div>
+                <div class="countdown-divider">•</div>
+                <div class="countdown-item">
+                    <span id="hours" class="countdown-number">00</span>
+                    <span class="countdown-label">Horas</span>
+                </div>
+                <div class="countdown-divider">•</div>
+                <div class="countdown-item">
+                    <span id="minutes" class="countdown-number">00</span>
+                    <span class="countdown-label">Minutos</span>
+                </div>
+                <div class="countdown-divider">•</div>
+                <div class="countdown-item">
+                    <span id="seconds" class="countdown-number">00</span>
+                    <span class="countdown-label">Segundos</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 5. FOTO DE NOVIOS (JPG) -->
+        <div class="image-section scale-up reveal-section">
+            <img src="novios.jpg" alt="Los Novios">
+        </div>
+
+        <!-- 6. CEREMONIA CON BOTONES CON TIPOGRAFÍA CINZEL -->
+        <div class="image-section scale-up reveal-section ceremonia-container">
+            <img src="ceremonia.png" alt="Ceremonia y Recepción">
+            
+            <!-- Botón Parroquia El Sagrado Corazón de Jesús -->
+            <a href="https://www.google.com/maps/place/Parroquia+El+Sagrado+Coraz%C3%B3n+de+Jes%C3%BAs,+Francisco+Javier+Mina+s%2Fn,+Centro,+81200+Los+Mochis,+Sin./data=!4m2!3m1!1s0x86ba25f86b859feb:0x4909c152ff3d2c1d!18m1!1e1?utm_source=mstt_1&entry=gps&coh=192189&g_ep=CAESBzI2LjM5LjQYACCIJyrHASw5NDI2NzcyNyw5NDI5MjE5NSw5NDI5OTUzMiwxMDA3OTY0OTgsMTAwNzk3NzYxLDEwMDc5NjUzNSwxMDA4NDAwNDYsOTQyODA1NzYsOTQyMDczOTQsOTQyMDc1MDYsOTQyMDg1MDYsOTQyMTg2NTMsOTQyMjk4MzksOTQyNzUxNjgsOTQyNzk6MTksMTAwODM1NzEwLDEwMDgyNTAyNSwxMDA4MjAy33MsMTAwODIyNDk0LDEwMDgyNzk3NSwxMDA4MzgzNTVCAk1Y&skid=32ff6db5-ebb0-4285-9cba-abb0252501b7&g_st=aw" target="_blank" rel="noopener noreferrer" class="map-btn btn-ceremonia">
+                <svg viewBox="0 0 24 24">
+                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                </svg>
+                Ver ubicación
+            </a>
+
+            <!-- Botón Laura Gran Salón de Eventos -->
+            <a href="https://www.google.com/maps?sca_esv=005fa50a9cf86e73&rlz=1C1CHBF_esMX838MX838&output=search&q=Laura+Gran+Sal%C3%B3n+de+Eventos,+Miguel+Hidalgo+y+Costilla+474-Ote,+Centro,+81200+Los+Mochis,+Sin.&source=lnms&fbs=ABfTbFUDadgeu2mn4mYJ8iEZ1GUDhGSCZm7XyznrPTo9Hy_Q2uz8Xz4EW5JZiKHLKDFwhT6aXomUdD5uk_52iV7ydHhsY5PSEoZDvT5p5TrP-SSga8K3gg1V9fxtRpU-CiEAgIakyBg_qautt_KQqo5iNDqPDU2mos7sropxQ8afYFj3dEKMJjOC95mcSh8tDKBlG4xmNFwPq1Ll7DgyOUDuuVEkaIgu0RppGOfqTDoEmphME-lLSMI&entry=mc&ved=1t:200715&ictx=111" target="_blank" rel="noopener noreferrer" class="map-btn btn-recepcion">
+                <svg viewBox="0 0 24 24">
+                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                </svg>
+                Ver ubicación
+            </a>
+        </div>
+
+        <!-- 7. VESTIMENTA (PNG) -->
+        <div class="image-section slide-left reveal-section">
+            <img src="vestimenta.png" alt="Vestimenta">
+        </div>
+
+        <!-- 8. GALERÍA (PNG) -->
+        <div class="image-section scale-up reveal-section">
+            <img src="galeria.png" alt="Galería">
+        </div>
+
+        <!-- FOTOS DE GALERÍA -->
+        <div class="image-section scale-up reveal-section">
+            <img src="https://i.imgur.com/RLSA5BC.jpeg" alt="Fotografía 1">
+        </div>
+        <div class="image-section scale-up reveal-section">
+            <img src="https://i.imgur.com/1EQEnP2.jpeg" alt="Fotografía 2">
+        </div>
+        <div class="image-section scale-up reveal-section">
+            <img src="https://i.imgur.com/MYmFVkW.jpeg" alt="Fotografía 3">
+        </div>
+        <div class="image-section scale-up reveal-section">
+            <img src="https://i.imgur.com/UW8uPAp.jpeg" alt="Fotografía 4">
+        </div>
+        <div class="image-section scale-up reveal-section">
+            <img src="https://i.imgur.com/0Kyen1w.jpeg" alt="Fotografía 5">
+        </div>
+        <div class="image-section scale-up reveal-section">
+            <img src="https://i.imgur.com/y7B9zV2.jpeg" alt="Fotografía 6">
+        </div>
+        <div class="image-section scale-up reveal-section">
+            <img src="https://i.imgur.com/z0c8YGz.jpeg" alt="Fotografía 7">
+        </div>
+        <div class="image-section scale-up reveal-section">
+            <img src="https://i.imgur.com/JMm13Rr.jpeg" alt="Fotografía 8">
+        </div>
+
+        <!-- 9. MESA DE REGALOS (PNG) -->
+        <div class="image-section scale-up reveal-section">
+            <img src="regalo.png" alt="Mesa de Regalos">
+        </div>
+
+        <!-- 10. TÍTULO DE ASISTENCIA (PNG) -->
+        <div class="image-section scale-up reveal-section">
+            <img src="asistencia.png" alt="Confirmación de Asistencia">
+        </div>
+
+        <!-- 11. FORMULARIO RSVP INTEGRADO AL FINAL (SIN FONDO) -->
+        <div class="rsvp-container-wrapper fade-up reveal-section">
+            <div class="tarjeta-asistencia">
+                <div class="grupo">
+                    <label class="etiqueta">Nombre completo</label>
+                    <input id="nombre" type="text" placeholder="Escribe tu nombre completo (Nombre y dos apellidos)" autocomplete="off">
+                </div>
+
+                <div class="grupo">
+                    <label class="etiqueta">¿Asistirás al evento?</label>
+                    <div class="opciones">
+                        <div class="opcion">
+                            <input type="radio" name="asistencia" id="si" value="Sí">
+                            <label for="si">Sí asistiré</label>
+                        </div>
+                        <div class="opcion">
+                            <input type="radio" name="asistencia" id="no" value="No">
+                            <label for="no">No podré ir</label>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="boton-confirmar" id="boton" onclick="enviar()">Enviar respuesta</button>
+                <div id="mensaje" class="mensaje"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- SOBRE DE BIENVENIDA -->
+    <div class="envelope-container" id="envelope">
+        <div class="envelope-card"></div>
+    </div>
+
+</div>
+
+<script>
+    let isOpen = false;
+    const music = document.getElementById("bg-music");
+    const wrapper = document.getElementById("invitation");
+    const envelope = document.getElementById("envelope");
+    const musicBtn = document.getElementById("musicBtn");
+    const musicIcon = document.getElementById("musicIcon");
+    const portadaSection = document.getElementById("portadaSection");
+    const papasSection = document.getElementById("papasSection");
+    const mobileScreen = document.getElementById("mobileScreen");
+
+    const notePath = '<path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>';
+    const pausePath = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>';
+
+    /* MOVIMIENTO PARALLAX */
+    let ticking = false;
+    wrapper.addEventListener('scroll', () => {
+        if (!ticking) {
+            window.requestAnimationFrame(() => {
+                const scrollTop = wrapper.scrollTop;
+                const maxScroll = wrapper.scrollHeight - wrapper.clientHeight;
+                if (maxScroll > 0) {
+                    const percentage = scrollTop / maxScroll;
+                    const translateY = percentage * -30; 
+                    mobileScreen.style.setProperty('--bg-y', `${translateY}%`);
+                }
+                ticking = false;
+            });
+            ticking = true;
+        }
+    }, { passive: true });
+
+    function openEnvelope() {
+        if (!isOpen) {
+            isOpen = true;
+            wrapper.scrollTop = 0;
+            
+            envelope.classList.add("open");
+            musicBtn.classList.add("visible");
+            
+            portadaSection.classList.add("portada-animada");
+            papasSection.classList.add("papas-animada");
+
+            initScrollAnimations();
+
+            if (music) {
+                var playPromise = music.play();
+                if (playPromise !== undefined) {
+                    playPromise.then(function() {
+                        musicBtn.classList.add("playing");
+                        musicIcon.innerHTML = notePath;
+                    }).catch(function(error) {
+                        console.log("Audio en reproducción manual:", error);
+                        musicBtn.classList.remove("playing");
+                        musicIcon.innerHTML = pausePath;
+                    });
+                }
+            }
+        }
+    }
+
+    envelope.addEventListener('click', openEnvelope);
+
+    function toggleMusic() {
+        if (music.paused) {
+            music.play();
+            musicBtn.classList.add("playing");
+            musicIcon.innerHTML = notePath;
+        } else {
+            music.pause();
+            musicBtn.classList.remove("playing");
+            musicIcon.innerHTML = pausePath;
+        }
+    }
+
+    function initScrollAnimations() {
+        const revealElements = document.querySelectorAll('.reveal-section');
+        
+        if (!('IntersectionObserver' in window)) {
+            revealElements.forEach(el => el.classList.add('visible-section'));
+            return;
+        }
+
+        const observerOptions = {
+            root: wrapper,
+            rootMargin: '0px 0px -20px 0px',
+            threshold: 0.05
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible-section');
+                }
+            });
+        }, observerOptions);
+
+        revealElements.forEach(el => observer.observe(el));
+    }
+
+    /* CUENTA REGRESIVA CONFIGURADA PARA EL 14 DE NOVIEMBRE DE 2026 */
+    function updateCountdown() {
+        const targetDate = new Date("November 14, 2026 20:00:00").getTime();
+        const now = new Date().getTime();
+        const diff = targetDate - now;
+
+        if (diff <= 0) {
+            document.getElementById('days').innerText = "00";
+            document.getElementById('hours').innerText = "00";
+            document.getElementById('minutes').innerText = "00";
+            document.getElementById('seconds').innerText = "00";
+            return;
+        }
+
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+        document.getElementById('days').innerText = String(days).padStart(2, '0');
+        document.getElementById('hours').innerText = String(hours).padStart(2, '0');
+        document.getElementById('minutes').innerText = String(minutes).padStart(2, '0');
+        document.getElementById('seconds').innerText = String(seconds).padStart(2, '0');
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    /* LÓGICA DE CONFIRMACIÓN DE ASISTENCIA CON GOOGLE APPS SCRIPT VIA JSONP */
+    const API_URL = "https://script.google.com/macros/s/AKfycbxjAkduDkOLqITuAATa8yX6REaByEwVkn6MQGrnnJUZo3bCJfWMHFXsoCCdU5lLdC4I/exec";
+
+    function llamarAPI(parametros) {
+        return new Promise((resolve, reject) => {
+            const callback = 'cb_' + Date.now() + '_' + Math.floor(Math.random() * 9999);
+            const script = document.createElement('script');
+            const query = new URLSearchParams({ ...parametros, callback });
+            const tiempo = setTimeout(() => { limpiar(); reject("Tiempo agotado"); }, 12000);
+
+            window[callback] = function(data) {
+                clearTimeout(tiempo);
+                limpiar();
+                resolve(data);
+            };
+
+            function limpiar() {
+                delete window[callback];
+                if (script.parentNode) script.parentNode.removeChild(script);
+            }
+
+            script.onerror = function() {
+                clearTimeout(tiempo);
+                limpiar();
+                reject("Error al conectar con el servidor");
+            };
+
+            script.src = API_URL + '?' + query.toString();
+            document.body.appendChild(script);
+        });
+    }
+
+    async function enviar() {
+        const nombreInput = document.getElementById('nombre').value.trim();
+        const asistencia = document.querySelector('input[name="asistencia"]:checked')?.value;
+        const mensaje = document.getElementById('mensaje');
+        const boton = document.getElementById('boton');
+
+        if (!nombreInput || !asistencia) {
+            mostrarMensaje('Por favor escribe tu nombre y selecciona si asistirás.');
+            return;
+        }
+
+        const palabras = nombreInput.split(/\s+/).filter(word => word.length > 0);
+        if (palabras.length < 3) {
+            mostrarMensaje('Por favor ingresa tu nombre completo (Nombre y dos apellidos).');
+            return;
+        }
+
+        boton.disabled = true;
+        boton.textContent = 'Guardando...';
+
+        try {
+            await llamarAPI({
+                action: 'confirmar',
+                nombre: nombreInput,
+                asistencia: asistencia
+            });
+
+            if (asistencia === 'No') {
+                mostrarMensaje('Lamentamos que no puedas acompañarnos, pero gracias por avisarnos.');
+            } else {
+                mostrarMensaje('¡Muchas gracias! Tu respuesta ha sido guardada exitosamente.');
+            }
+
+            document.getElementById('nombre').value = '';
+            document.querySelectorAll('input[name="asistencia"]').forEach(r => r.checked = false);
+
+        } catch (error) {
+            console.error(error);
+            mostrarMensaje('Ocurrió un error al guardar tu respuesta. Por favor intenta de nuevo.');
+        } finally {
+            boton.disabled = false;
+            boton.textContent = 'Enviar respuesta';
+        }
+    }
+
+    function mostrarMensaje(texto) {
+        const mensaje = document.getElementById('mensaje');
+        mensaje.className = 'mensaje visible';
+        mensaje.textContent = texto;
+    }
+</script>
+
+</body>
+</html>
