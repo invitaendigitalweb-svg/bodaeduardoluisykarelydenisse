@@ -395,7 +395,7 @@
 
     .tarjeta-asistencia {
       width: 100%;
-      background: transparent; /* SIN FONDO */
+      background: transparent;
       border: 1px solid rgba(234, 229, 217, 0.8);
       border-radius: 25px;
       padding: 30px 22px;
@@ -581,7 +581,7 @@
             <img src="ceremonia.png" alt="Ceremonia y Recepción">
             
             <!-- Botón Parroquia El Sagrado Corazón de Jesús -->
-            <a href="https://www.google.com/maps/place/Parroquia+El+Sagrado+Coraz%C3%B3n+de+Jes%C3%BAs,+Francisco+Javier+Mina+s%2Fn,+Centro,+81200+Los+Mochis,+Sin./data=!4m2!3m1!1s0x86ba25f86b859feb:0x4909c152ff3d2c1d!18m1!1e1?utm_source=mstt_1&entry=gps&coh=192189&g_ep=CAESBzI2LjM5LjQYACCIJyrHASw5NDI2NzcyNyw5NDI5MjE5NSw5NDI5OTUzMiwxMDA3OTY0OTgsMTAwNzk3NzYxLDEwMDc5NjUzNSwxMDA4NDAwNDYsOTQyODA1NzYsOTQyMDczOTQsOTQyMDc1MDYsOTQyMDg1MDYsOTQyMTg2NTMsOTQyMjk4MzksOTQyNzUxNjgsOTQyNzk6MTksMTAwODM1NzEwLDEwMDgyNTAyNSwxMDA4MjAy33MsMTAwODIyNDk0LDEwMDgyNzk3NSwxMDA4MzgzNTVCAk1Y&skid=32ff6db5-ebb0-4285-9cba-abb0252501b7&g_st=aw" target="_blank" rel="noopener noreferrer" class="map-btn btn-ceremonia">
+            <a href="https://www.google.com/maps/place/Parroquia+El+Sagrado+Coraz%C3%B3n+de+Jes%C3%BAs,+Francisco+Javier+Mina+s%2Fn,+Centro,+81200+Los+Mochis,+Sin./data=!4m2!3m1!1s0x86ba25f86b859feb:0x4909c152ff3d2c1d!18m1!1e1?utm_source=mstt_1&entry=gps&coh=192189&g_ep=CAESBzI2LjM5LjQYACCIJyrHASw5NDI2NzcyNyw5NDI5MjE5NSw5NDI59UzIiwxMDA3OTY0OTgsMTAwNzk3NzYxLDEwMDc5NjUzNSwxMDA4NDAwNDYsOTQyODA1NzYsOTQyMDczOTQsOTQyMDc1MDYsOTQyMDg1MDYsOTQyMTg2NTMsOTQyMjk4MzksOTQyNzUxNjgsOTQyNzk6MTksMTAwODM1NzEwLDEwMDgyNTAyNSwxMDA4MjAy33MsMTAwODIyNDk0LDEwMDgyNzk3NSwxMDA4MzgzNTVCAk1Y&skid=32ff6db5-ebb0-4285-9cba-abb0252501b7&g_st=aw" target="_blank" rel="noopener noreferrer" class="map-btn btn-ceremonia">
                 <svg viewBox="0 0 24 24">
                     <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
                 </svg>
@@ -807,79 +807,70 @@
     setInterval(updateCountdown, 1000);
     updateCountdown();
 
-    /* LÓGICA DE CONFIRMACIÓN DE ASISTENCIA CON GOOGLE APPS SCRIPT VIA JSONP */
-    const API_URL = "https://script.google.com/macros/s/AKfycbxrBWzaPziCoZkrBH0-ouPYVq85_30djT71HZJANQmxD6BJvxxylIGEdiREdrNauXK6/exec";
-
-    function llamarAPI(parametros) {
-        return new Promise((resolve, reject) => {
-            const callback = 'cb_' + Date.now() + '_' + Math.floor(Math.random() * 9999);
-            const script = document.createElement('script');
-            const query = new URLSearchParams({ ...parametros, callback });
-            const tiempo = setTimeout(() => { limpiar(); reject("Tiempo agotado"); }, 12000);
-
-            window[callback] = function(data) {
-                clearTimeout(tiempo);
-                limpiar();
-                resolve(data);
-            };
-
-            function limpiar() {
-                delete window[callback];
-                if (script.parentNode) script.parentNode.removeChild(script);
-            }
-
-            script.onerror = function() {
-                clearTimeout(tiempo);
-                limpiar();
-                reject("Error al conectar con el servidor");
-            };
-
-            script.src = API_URL + '?' + query.toString();
-            document.body.appendChild(script);
-        });
-    }
+    /* LÓGICA DE CONFIRMACIÓN DE ASISTENCIA OPTIMIZADA CON FETCH */
+    const API_URL = "https://script.google.com/macros/s/AKfycbzbEoSZgpBB2y2nWMFbiXwSs3uhCS8-JESPM_oVSUv_pGkqfCCTuLlulyMDutx7Ql2O/exec";
 
     async function enviar() {
-        const nombreInput = document.getElementById('nombre').value.trim();
-        const asistencia = document.querySelector('input[name="asistencia"]:checked')?.value;
+        const nombreInput = document.getElementById('nombre');
+        const nombreValor = nombreInput.value.trim();
+        const asistenciaRadio = document.querySelector('input[name="asistencia"]:checked');
+        const opcionesAsistencia = document.querySelectorAll('input[name="asistencia"]');
         const mensaje = document.getElementById('mensaje');
         const boton = document.getElementById('boton');
 
-        if (!nombreInput || !asistencia) {
+        if (!nombreValor || !asistenciaRadio) {
             mostrarMensaje('Por favor escribe tu nombre y selecciona si asistirás.');
             return;
         }
 
-        const palabras = nombreInput.split(/\s+/).filter(word => word.length > 0);
+        // VALIDACIÓN: Mínimo 3 palabras (Nombre y dos apellidos)
+        const palabras = nombreValor.split(/\s+/).filter(word => word.length > 0);
         if (palabras.length < 3) {
             mostrarMensaje('Por favor ingresa tu nombre completo (Nombre y dos apellidos).');
             return;
         }
 
+        // Bloquear todos los controles para evitar doble envío durante la solicitud
         boton.disabled = true;
+        nombreInput.disabled = true;
+        opcionesAsistencia.forEach(r => r.disabled = true);
         boton.textContent = 'Guardando...';
+        mensaje.className = 'mensaje';
 
         try {
-            await llamarAPI({
-                action: 'confirmar',
-                nombre: nombreInput,
-                asistencia: asistencia
+            const respuesta = await fetch(API_URL, {
+                method: 'POST',
+                mode: 'cors',
+                headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                body: JSON.stringify({
+                    action: 'confirmar',
+                    nombre: nombreValor,
+                    asistencia: asistenciaRadio.value
+                })
             });
 
-            if (asistencia === 'No') {
-                mostrarMensaje('Lamentamos que no puedas acompañarnos, pero gracias por avisarnos.');
-            } else {
-                mostrarMensaje('¡Muchas gracias! Tu respuesta ha sido guardada exitosamente.');
+            const resData = await respuesta.json();
+
+            if (!resData.ok) {
+                throw new Error(resData.error || 'Error al guardar');
             }
 
-            document.getElementById('nombre').value = '';
-            document.querySelectorAll('input[name="asistencia"]').forEach(r => r.checked = false);
+            let mensajeExito = (asistenciaRadio.value === 'No')
+                ? 'Lamentamos que no puedas acompañarnos, pero gracias por avisarnos.'
+                : '¡Muchas gracias! Tu respuesta ha sido guardada exitosamente.';
+
+            mostrarMensaje(mensajeExito);
+            nombreInput.value = '';
+            opcionesAsistencia.forEach(r => r.checked = false);
 
         } catch (error) {
             console.error(error);
             mostrarMensaje('Ocurrió un error al guardar tu respuesta. Por favor intenta de nuevo.');
         } finally {
+            // Desbloquear controles al finalizar
             boton.disabled = false;
+            nombreInput.disabled = false;
+            opcionesAsistencia.forEach(r => r.disabled = false);
             boton.textContent = 'Enviar respuesta';
         }
     }
