@@ -384,133 +384,56 @@
       pointer-events: none;
     }
 
-    /* ESTILOS DE LA FORMULARIO RSVP INTEGRADO (SIN FONDO) */
+    /* ESTILOS DE MENSAJE DE CONFIRMACIÓN CERRADA */
     .rsvp-container-wrapper {
       width: 100%;
-      padding: 10px 20px 30px;
+      padding: 10px 20px 40px;
       display: flex;
       justify-content: center;
       line-height: normal;
     }
 
-    .tarjeta-asistencia {
+    .tarjeta-cerrada {
       width: 100%;
       background: transparent;
-      border: 1px solid rgba(234, 229, 217, 0.8);
+      border: 1px solid rgba(234, 229, 217, 0.95);
       border-radius: 25px;
-      padding: 30px 22px;
+      padding: 35px 25px;
       backdrop-filter: blur(5px);
       box-shadow: 0 10px 30px rgba(17, 28, 51, 0.08);
-      font-family: 'Montserrat', sans-serif;
-      color: #554C3A;
+      text-align: center;
     }
 
-    .grupo {
-      margin-bottom: 22px;
-      position: relative;
-    }
-
-    .etiqueta {
+    .tarjeta-cerrada .icono-sobre {
+      font-size: 26px;
+      color: #A68B5B;
+      margin-bottom: 12px;
       display: block;
+    }
+
+    .tarjeta-cerrada .titulo-cerrado {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 22px;
+      font-size: 26px;
       color: #1d335a;
-      margin-bottom: 10px;
       font-weight: 600;
-      text-align: center;
+      margin-bottom: 12px;
+      line-height: 1.2;
     }
 
-    .tarjeta-asistencia input[type="text"] {
-      width: 100%;
-      padding: 14px 15px;
-      border-radius: 12px;
-      border: 1px solid #EAE5D9;
-      background: rgba(253, 251, 247, 0.85);
-      outline: none;
+    .tarjeta-cerrada .subtitulo-cerrado {
       font-family: 'Montserrat', sans-serif;
-      color: #554C3A;
-      font-size: 14px;
-      transition: all 0.3s ease;
-    }
-
-    .tarjeta-asistencia input[type="text"]:focus {
-      border-color: #1d335a;
-      box-shadow: 0 0 8px rgba(29, 51, 90, 0.2);
-      background: #FFFFFF;
-    }
-
-    .opciones {
-      display: flex;
-      gap: 12px;
-    }
-
-    .opcion {
-      flex: 1;
-    }
-
-    .opcion input {
-      display: none;
-    }
-
-    .opcion label {
-      display: block;
-      text-align: center;
-      padding: 13px 8px;
-      border: 1px solid #EAE5D9;
-      border-radius: 12px;
-      cursor: pointer;
-      font-size: 13px;
-      background: rgba(253, 251, 247, 0.85);
-      color: #726650;
-      transition: .2s;
-    }
-
-    .opcion input:checked + label {
-      background: #1d335a;
-      border-color: #1d335a;
-      color: #FFFFFF;
-      font-weight: 600;
-    }
-
-    .boton-confirmar {
-      width: 100%;
-      border: 0;
-      border-radius: 30px;
-      padding: 16px;
-      background: linear-gradient(135deg, #1d335a 0%, #101c33 100%);
-      color: white;
-      font-family: 'Montserrat', sans-serif;
-      font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
-      margin-top: 10px;
-      box-shadow: 0 4px 15px rgba(16, 28, 51, 0.25);
-      transition: all 0.2s ease;
-    }
-
-    .boton-confirmar:hover {
-      background: #101c33;
-    }
-
-    .boton-confirmar:disabled {
-      opacity: .6;
-      cursor: not-allowed;
-    }
-
-    .mensaje {
-      display: none;
-      text-align: center;
-      margin-top: 20px;
-      padding: 15px;
-      border-radius: 12px;
-      background: rgba(253, 251, 247, 0.9);
-      border: 1px solid #EAE5D9;
-      line-height: 1.5;
       font-size: 13.5px;
-      color: #554C3A;
+      color: #726650;
+      line-height: 1.6;
+      font-weight: 400;
     }
 
-    .mensaje.visible {
+    .tarjeta-cerrada .frase-final {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px;
+      color: #8C6D46;
+      font-style: italic;
+      margin-top: 15px;
       display: block;
     }
   </style>
@@ -581,7 +504,7 @@
             <img src="ceremonia.png" alt="Ceremonia y Recepción">
             
             <!-- Botón Parroquia El Sagrado Corazón de Jesús -->
-            <a href="https://www.google.com/maps/place/Parroquia+El+Sagrado+Coraz%C3%B3n+de+Jes%C3%BAs,+Francisco+Javier+Mina+s%2Fn,+Centro,+81200+Los+Mochis,+Sin./data=!4m2!3m1!1s0x86ba25f86b859feb:0x4909c152ff3d2c1d!18m1!1e1?utm_source=mstt_1&entry=gps&coh=192189&g_ep=CAESBzI2LjM5LjQYACCIJyrHASw5NDI2NzcyNyw5NDI5MjE5NSw5NDI59UzIiwxMDA3OTY0OTgsMTAwNzk3NzYxLDEwMDc5NjUzNSwxMDA4NDAwNDYsOTQyODA1NzYsOTQyMDczOTQsOTQyMDc1MDYsOTQyMDg1MDYsOTQyMTg2NTMsOTQyMjk4MzksOTQyNzUxNjgsOTQyNzk6MTksMTAwODM1NzEwLDEwMDgyNTAyNSwxMDA4MjAy33MsMTAwODIyNDk0LDEwMDgyNzk3NSwxMDA4MzgzNTVCAk1Y&skid=32ff6db5-ebb0-4285-9cba-abb0252501b7&g_st=aw" target="_blank" rel="noopener noreferrer" class="map-btn btn-ceremonia">
+            <a href="https://www.google.com/maps/place/Parroquia+El+Sagrado+Coraz%C3%B3n+de+Jes%C3%BAs,+Francisco+Javier+Mina+s%2Fn,+Centro,+81200+Los+Mochis,+Sin./data=!4m2!3m1!1s0x86ba25f86b859feb:0x4909c152ff3d2c1d!18m1!1e1?utm_source=mstt_1&entry=gps&coh=192189&g_ep=CAESBzI2LjM5LjQYACCIJyrHASw5NDI2NzcyNyw5NDI5MjE5NSw5NDI59UzIiwxMDA3OTY0OTgsMTAwNzk3NzYxLDEwMDc5NjUzNSwxMDA4NDAwNDYsOTQyODA1NzYsOTQyMDczOTQsOTQyMDc5MDYsOTQyMDg1MDYsOTQyMTg2NTMsOTQyMjk4MzksOTQyNzUxNjgsOTQyNzk6MTksMTAwODM1NzEwLDEwMDgyNTAyNSwxMDA4MjAy33MsMTAwODIyNDk4LDEwMDgyNzk3NSwxMDA4MzgzNTVCAk1Y&skid=32ff6db5-ebb0-4285-9cba-abb0252501b7&g_st=aw" target="_blank" rel="noopener noreferrer" class="map-btn btn-ceremonia">
                 <svg viewBox="0 0 24 24">
                     <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
                 </svg>
@@ -643,30 +566,15 @@
             <img src="asistencia.png" alt="Confirmación de Asistencia">
         </div>
 
-        <!-- 11. FORMULARIO RSVP INTEGRADO AL FINAL (SIN FONDO) -->
+        <!-- 11. MENSAJE DE CONFIRMACIÓN CERRADA (ESTILO ELEGANTE) -->
         <div class="rsvp-container-wrapper fade-up reveal-section">
-            <div class="tarjeta-asistencia">
-                <div class="grupo">
-                    <label class="etiqueta">Nombre completo</label>
-                    <input id="nombre" type="text" placeholder="Escribe tu nombre completo (Nombre y dos apellidos)" autocomplete="off">
-                </div>
-
-                <div class="grupo">
-                    <label class="etiqueta">¿Asistirás al evento?</label>
-                    <div class="opciones">
-                        <div class="opcion">
-                            <input type="radio" name="asistencia" id="si" value="Sí">
-                            <label for="si">Sí asistiré</label>
-                        </div>
-                        <div class="opcion">
-                            <input type="radio" name="asistencia" id="no" value="No">
-                            <label for="no">No podré ir</label>
-                        </div>
-                    </div>
-                </div>
-
-                <button class="boton-confirmar" id="boton" onclick="enviar()">Enviar respuesta</button>
-                <div id="mensaje" class="mensaje"></div>
+            <div class="tarjeta-cerrada">
+                <span class="icono-sobre">✦</span>
+                <h3 class="titulo-cerrado">Confirmaciones Cerradas</h3>
+                <p class="subtitulo-cerrado">
+                    El periodo para confirmar asistencia ha concluido. Agradecemos enormemente a todos por sus respuestas.
+                </p>
+                <span class="frase-final">¡Esperamos verte pronto para celebrar juntos!</span>
             </div>
         </div>
 
@@ -806,80 +714,6 @@
 
     setInterval(updateCountdown, 1000);
     updateCountdown();
-
-    /* LÓGICA DE CONFIRMACIÓN DE ASISTENCIA OPTIMIZADA CON FETCH */
-    const API_URL = "https://script.google.com/macros/s/AKfycbzbEoSZgpBB2y2nWMFbiXwSs3uhCS8-JESPM_oVSUv_pGkqfCCTuLlulyMDutx7Ql2O/exec";
-
-    async function enviar() {
-        const nombreInput = document.getElementById('nombre');
-        const nombreValor = nombreInput.value.trim();
-        const asistenciaRadio = document.querySelector('input[name="asistencia"]:checked');
-        const opcionesAsistencia = document.querySelectorAll('input[name="asistencia"]');
-        const mensaje = document.getElementById('mensaje');
-        const boton = document.getElementById('boton');
-
-        if (!nombreValor || !asistenciaRadio) {
-            mostrarMensaje('Por favor escribe tu nombre y selecciona si asistirás.');
-            return;
-        }
-
-        // VALIDACIÓN: Mínimo 3 palabras (Nombre y dos apellidos)
-        const palabras = nombreValor.split(/\s+/).filter(word => word.length > 0);
-        if (palabras.length < 3) {
-            mostrarMensaje('Por favor ingresa tu nombre completo (Nombre y dos apellidos).');
-            return;
-        }
-
-        // Bloquear todos los controles para evitar doble envío durante la solicitud
-        boton.disabled = true;
-        nombreInput.disabled = true;
-        opcionesAsistencia.forEach(r => r.disabled = true);
-        boton.textContent = 'Guardando...';
-        mensaje.className = 'mensaje';
-
-        try {
-            const respuesta = await fetch(API_URL, {
-                method: 'POST',
-                mode: 'cors',
-                headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-                body: JSON.stringify({
-                    action: 'confirmar',
-                    nombre: nombreValor,
-                    asistencia: asistenciaRadio.value
-                })
-            });
-
-            const resData = await respuesta.json();
-
-            if (!resData.ok) {
-                throw new Error(resData.error || 'Error al guardar');
-            }
-
-            let mensajeExito = (asistenciaRadio.value === 'No')
-                ? 'Lamentamos que no puedas acompañarnos, pero gracias por avisarnos.'
-                : '¡Muchas gracias! Tu respuesta ha sido guardada exitosamente.';
-
-            mostrarMensaje(mensajeExito);
-            nombreInput.value = '';
-            opcionesAsistencia.forEach(r => r.checked = false);
-
-        } catch (error) {
-            console.error(error);
-            mostrarMensaje('Ocurrió un error al guardar tu respuesta. Por favor intenta de nuevo.');
-        } finally {
-            // Desbloquear controles al finalizar
-            boton.disabled = false;
-            nombreInput.disabled = false;
-            opcionesAsistencia.forEach(r => r.disabled = false);
-            boton.textContent = 'Enviar respuesta';
-        }
-    }
-
-    function mostrarMensaje(texto) {
-        const mensaje = document.getElementById('mensaje');
-        mensaje.className = 'mensaje visible';
-        mensaje.textContent = texto;
-    }
 </script>
 
 </body>
